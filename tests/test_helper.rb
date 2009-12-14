@@ -4,7 +4,7 @@ require 'logger'
 require File.dirname(__FILE__) + '/../lib/git'
 
 class Test::Unit::TestCase
-  
+
   def set_file_paths
     cwd = `pwd`.chomp
     if File.directory?(File.join(cwd, 'files'))
@@ -14,21 +14,21 @@ class Test::Unit::TestCase
     elsif File.directory?(File.join(cwd, 'tests', 'files'))
       @test_dir = File.join(cwd, 'tests', 'files')
     end
-    
+
     @wdir_dot = File.expand_path(File.join(@test_dir, 'working'))
     @wbare = File.expand_path(File.join(@test_dir, 'working.git'))
     @index = File.expand_path(File.join(@test_dir, 'index'))
-    
+
     @wdir = create_temp_repo(@wdir_dot)
   end
-  
+
   def teardown
     if @tmp_path
       #puts "teardown #{@tmp_path}"
       FileUtils.rm_r(@tmp_path)
     end
   end
-  
+
   def create_temp_repo(clone_path)
     filename = 'git_test' + Time.now.to_i.to_s + rand(300).to_s.rjust(3, '0')
     @tmp_path = File.join("/tmp/", filename)
@@ -40,7 +40,7 @@ class Test::Unit::TestCase
     end
     tmp_path
   end
-  
+
   def in_temp_dir(remove_after = true) # :yields: the temporary dir's path
     filename = 'git_test' + Time.now.to_i.to_s + rand(300).to_s.rjust(3, '0')
     tmp_path = File.join("/tmp/", filename)
@@ -50,8 +50,8 @@ class Test::Unit::TestCase
     end
     FileUtils.rm_r(tmp_path) if remove_after
   end
-  
-  
+
+
   def new_file(name, contents)
     File.open(name, 'w') do |f|
       f.puts contents
@@ -63,5 +63,5 @@ class Test::Unit::TestCase
       f.puts contents
     end
   end
-  
+
 end

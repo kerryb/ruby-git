@@ -39,7 +39,7 @@ end
 # and more.  You should be able to do most fundamental git
 # operations with this library.
 #
-# This module provides the basic functions to open a git 
+# This module provides the basic functions to open a git
 # reference to work with. You can open a working directory,
 # open a bare repository, initialize a new repo or clone an
 # existing remote repository.
@@ -49,7 +49,7 @@ end
 module Git
 
   VERSION = '1.0.4'
-  
+
   # open a bare repository
   #
   # this takes the path to a bare git repo
@@ -59,9 +59,9 @@ module Git
   def self.bare(git_dir, options = {})
     Base.bare(git_dir, options)
   end
-    
+
   # open an existing git working directory
-  # 
+  #
   # this will most likely be the most common way to create
   # a git reference, referring to a working directory.
   # if not provided in the options, the library will assume
@@ -96,7 +96,7 @@ module Git
   def self.clone(repository, name, options = {})
     Base.clone(repository, name, options)
   end
-  
+
   # Export the current HEAD (or a branch, if <tt>options[:branch]</tt>
   # is specified) into the +name+ directory, then remove all traces of git from the
   # directory.
@@ -152,5 +152,5 @@ module Git
   def global_config(name = nil, value = nil)
     self.class.global_config(name, value)
   end
-    
+
 end

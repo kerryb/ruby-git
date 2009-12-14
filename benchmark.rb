@@ -7,15 +7,15 @@ require 'lib/git'
 
 def main
   @wbare = File.expand_path(File.join('tests', 'files', 'working.git'))
-  
+
   in_temp_dir do
     g = Git.clone(@wbare, 'test')
     g.chdir do
-      
+
       n = 40
       result = RubyProf.profile do
       puts "<pre>"
-      
+
       Benchmark.bm(8) do |x|
         run_code(x, 'objects') do
           @commit = g.gcommit('1cc8667014381')
@@ -23,8 +23,8 @@ def main
           @blob = g.gblob('v2.5:example.txt')
           @obj = g.object('v2.5:example.txt')
         end
-        
-                
+
+
         x.report('config  ') do
           n.times do
             c = g.config
@@ -32,7 +32,7 @@ def main
             c = g.config('user.email', 'schacon@gmail.com')
           end
         end
-        
+
         x.report('diff    ') do
           n.times do
             g.diff('gitsearch1', 'v2.5').lines
@@ -40,7 +40,7 @@ def main
             g.diff('gitsearch1', 'v2.5').patch
           end
         end
-        
+
         x.report('path    ') do
           n.times do
             g.dir.readable?
@@ -48,7 +48,7 @@ def main
             g.repo.readable?
           end
         end
-        
+
         #------------------
         x.report('status  ') do
           n.times do
@@ -85,7 +85,7 @@ def main
             g.checkout('new_branch')
           end
         end
-        
+
         #------------------
         x.report('tree    ') do
           for i in 1..10 do
@@ -102,10 +102,10 @@ def main
             f = g.gcommit('v2.6').archive # returns path to temp file
           end
         end rescue nil
-   
-	     
+
+	
       end
-    
+
       end
 
       # Print a graph profile to text
@@ -129,9 +129,9 @@ def run_code(x, name, times = 30)
         yield i
       end
     end
-  
+
   #end
-  
+
   # Print a graph profile to text
   #printer = RubyProf::FlatPrinter.new(result)
   #printer.print(STDOUT, 0)
